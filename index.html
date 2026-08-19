@@ -118,6 +118,12 @@ h2 em{font-family:'Instrument Serif';font-style:italic;font-weight:400;color:var
 .vid .vh b{font-family:'Unbounded';font-weight:600;font-size:12px;display:block}
 .vid .vh span{font-size:11px;opacity:.9}
 .vid .platform{position:absolute;top:12px;right:12px;background:rgba(34,19,39,.75);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:999px;letter-spacing:.06em}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.vid .snd{position:absolute;top:12px;left:12px;background:rgba(34,19,39,.75);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px;z-index:2}
+.vid-tt{flex:0 0 325px;height:585px;border-radius:22px;overflow:hidden;background:#000}
+.vid-tt blockquote{margin:0!important}
+.vbtn{margin-top:8px;background:#fff;color:#221327;border:none;border-radius:999px;font-family:'Instrument Sans';font-weight:600;font-size:12px;padding:8px 16px;cursor:pointer;transition:transform .2s}
+.vbtn:hover{transform:scale(1.06)}
 
 /* RITUAL */
 .ritual{background:var(--ink);border-radius:44px;color:var(--milk);max-width:1240px;padding:80px 60px}
@@ -284,13 +290,7 @@ footer{background:var(--ink);color:var(--milk);padding:80px 24px 40px;margin-top
     <h2>Creators can't stop <em>bursting capsules</em></h2>
     <p>The capsule-blend moment was made for the camera. Follow @ALVEEBEAUTY for the full feed.</p>
   </div>
-  <div class="vids">
-    <div class="vid" onclick="goTikTok()"><div class="bgv" style="background:linear-gradient(160deg,#B57BFF,#221327)"></div><div class="platform">TIKTOK</div><div class="play">▶</div><div class="vh"><b>@glowwithmins</b><span>ASMR capsule blend — GHK-Cu 🔵</span></div></div>
-    <div class="vid" onclick="goInsta()"><div class="bgv" style="background:linear-gradient(160deg,#FFD34E,#E8862E)"></div><div class="platform">REELS</div><div class="play">▶</div><div class="vh"><b>@skincarebysana</b><span>Vitamin C water-glow GRWM ✨</span></div></div>
-    <div class="vid" onclick="goTikTok()"><div class="bgv" style="background:linear-gradient(160deg,#FF9EC4,#B5487F)"></div><div class="platform">TIKTOK</div><div class="play">▶</div><div class="vh"><b>@dewydiaries</b><span>Salmon DNA — 7 day firming test 🩷</span></div></div>
-    <div class="vid" onclick="goInsta()"><div class="bgv" style="background:linear-gradient(160deg,#D9A93C,#6B4E12)"></div><div class="platform">REELS</div><div class="play">▶</div><div class="vh"><b>@luxeandglow</b><span>Golden Glow unboxing — gift of the year 🥇</span></div></div>
-    <div class="vid" onclick="goTikTok()"><div class="bgv" style="background:linear-gradient(160deg,#7FC98A,#2C5E3A)"></div><div class="platform">TIKTOK</div><div class="play">▶</div><div class="vh"><b>@sensitiveskinclub</b><span>Centella for reactive skin — honest review 🌿</span></div></div>
-    <div class="vid" onclick="goInsta()"><div class="bgv" style="background:linear-gradient(160deg,#4D9FFF,#1B2B5E)"></div><div class="platform">REELS</div><div class="play">▶</div><div class="vh"><b>@theskinedit</b><span>What is PDRN? Capsule cream explained 🧪</span></div></div>
+  <div class="vids" id="vidRail"></div></div>
   </div>
 </section>
 
@@ -529,6 +529,68 @@ document.addEventListener('click',e=>{
 document.getElementById('mClose').addEventListener('click',e=>{e.stopPropagation();closeModal()});
 modalBg.addEventListener('click',e=>{if(e.target===modalBg)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ---- CREATOR VIDEOS ----
+   ADD YOUR VIDEOS HERE. Two ways, mix freely:
+   A) Video file uploaded to the repo:  {mp4:'videos/clip1.mp4', handle:'@creator', caption:'GHK-Cu ASMR blend'}
+   B) TikTok link:                      {tiktok:'https://www.tiktok.com/@user/video/1234567890123456789'}
+*/
+/* Upload your 6 videos to the repo in a folder called "videos",
+   named exactly 1.mp4, 2.mp4, 3.mp4, 4.mp4, 5.mp4, 6.mp4.
+   Each card shows the video + product name + a View Product button.
+   To change which product a video belongs to, just edit the product name. */
+const VIDEOS=[
+  {mp4:'videos/ghk-cu.mp4', product:'GHK-Cu Peptide Capsule Cream'},
+  {mp4:'videos/grape-seed.mp4', product:'Grape Seed Essence Capsule Cream'},
+  {mp4:'videos/vitamin-c.mp4', product:'Vitamin C Radiance Capsule Cream'},
+  {mp4:'videos/salmon-firming.mp4', product:'Salmon DNA Firming Capsule Cream'},
+  {mp4:'videos/centella.mp4', product:'Centella Comfort Capsule Cream'},
+  {mp4:'videos/golden-glow.mp4', product:'Golden Glow Capsule Cream'},
+];
+const PLACEHOLDERS=[
+ {g:'linear-gradient(160deg,#B57BFF,#221327)',p:'TIKTOK',h:'@glowwithmins',c:'ASMR capsule blend — GHK-Cu 🔵',go:goTikTok},
+ {g:'linear-gradient(160deg,#FFD34E,#E8862E)',p:'REELS',h:'@skincarebysana',c:'Vitamin C water-glow GRWM ✨',go:goInsta},
+ {g:'linear-gradient(160deg,#FF9EC4,#B5487F)',p:'TIKTOK',h:'@dewydiaries',c:'Salmon DNA — 7 day firming test 🩷',go:goTikTok},
+ {g:'linear-gradient(160deg,#D9A93C,#6B4E12)',p:'REELS',h:'@luxeandglow',c:'Golden Glow unboxing 🥇',go:goInsta},
+ {g:'linear-gradient(160deg,#7FC98A,#2C5E3A)',p:'TIKTOK',h:'@sensitiveskinclub',c:'Centella honest review 🌿',go:goTikTok},
+ {g:'linear-gradient(160deg,#4D9FFF,#1B2B5E)',p:'REELS',h:'@theskinedit',c:'What is PDRN? Explained 🧪',go:goInsta},
+];
+function renderVideos(){
+  const rail=document.getElementById('vidRail');
+  if(!rail)return;
+  if(VIDEOS.length===0){
+    rail.innerHTML=PLACEHOLDERS.map((v,i)=>'<div class="vid" data-ph="'+i+'"><div class="bgv" style="background:'+v.g+'"></div><div class="platform">'+v.p+'</div><div class="play">▶</div><div class="vh"><b>'+v.h+'</b><span>'+v.c+'</span></div></div>').join('');
+    rail.querySelectorAll('.vid').forEach(el=>el.addEventListener('click',()=>PLACEHOLDERS[+el.dataset.ph].go()));
+    return;
+  }
+  let needTT=false;
+  rail.innerHTML=VIDEOS.map((v,i)=>{
+    const pIdx=PRODUCTS.findIndex(p=>p.name===v.product);
+    const p=pIdx>-1?PRODUCTS[pIdx]:null;
+    const grad=p?('linear-gradient(160deg,'+p.color+',#221327)'):'linear-gradient(160deg,#B57BFF,#221327)';
+    const nameBar=p?('<b>'+p.name+'</b><button class="vbtn" data-p="'+pIdx+'">View product →</button>'):('<b>'+(v.handle||'@alveebeauty')+'</b>');
+    if(v.mp4){
+      return '<div class="vid" data-v="'+i+'"><div class="bgv" style="background:'+grad+'"></div><video src="'+v.mp4+'" muted loop playsinline preload="metadata" onerror="this.remove()"></video><div class="snd">🔇</div><div class="play">▶</div><div class="vh">'+nameBar+'</div></div>';
+    }
+    if(v.tiktok){
+      needTT=true;
+      const id=(v.tiktok.match(/video\/(\d+)/)||[])[1]||'';
+      return '<div class="vid-tt"><blockquote class="tiktok-embed" cite="'+v.tiktok+'" data-video-id="'+id+'" style="max-width:325px;min-width:325px"><section><a target="_blank" href="'+v.tiktok+'">Watch on TikTok</a></section></blockquote>'+(p?'<button class="vbtn" data-p="'+pIdx+'" style="margin:10px auto;display:block">View product →</button>':'')+'</div>';
+    }
+    return '';
+  }).join('');
+  rail.querySelectorAll('.vbtn').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();openModal(+b.dataset.p)}));
+  if(needTT){const s=document.createElement('script');s.src='https://www.tiktok.com/embed.js';s.async=true;document.body.appendChild(s);}
+  rail.querySelectorAll('.vid[data-v]').forEach(el=>{
+    const vid=el.querySelector('video'),play=el.querySelector('.play'),snd=el.querySelector('.snd');
+    el.addEventListener('click',()=>{
+      if(vid.paused){vid.play();play.style.display='none';}
+      else if(vid.muted){vid.muted=false;snd.textContent='🔊';}
+      else{vid.muted=true;snd.textContent='🔇';}
+    });
+  });
+}
+renderVideos();
 
 /* router */
 function go(r){location.hash='#/'+r}

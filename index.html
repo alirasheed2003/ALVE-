@@ -601,6 +601,7 @@ footer{background:var(--ink);color:var(--bg);padding:110px 0 0;position:relative
 
 <script>
 /* ============ DATA ============ */
+var ro=null;
 const AMAZON='https://www.amazon.com/s?k=ALVE%C3%89&ref=bl_dp_s_web_0';
 const IMG=id=>'https://drive.google.com/thumbnail?id='+id+'&sz=w1000';
 const DIR_CREAM='After cleansing and toning, take an appropriate amount of cream with the capsule essence. Gently blend on the palm or apply directly to face and neck, avoiding the eye area. Use morning and evening. For daytime use, finish with sunscreen.';
@@ -646,7 +647,7 @@ function pcardHTML(p,i){
 }
 
 /* featured (home) */
-document.getElementById('featGrid').innerHTML=[0,9,8,2].map(i=>pcardHTML(PRODUCTS[i],i)).join('');
+try{document.getElementById('featGrid').innerHTML=[0,9,8,2].map(i=>pcardHTML(PRODUCTS[i],i)).join('');}catch(e){console.error(e)}
 
 /* reviews */
 document.getElementById('revGrid').innerHTML=REVIEWS.map((r,i)=>
@@ -664,8 +665,8 @@ function renderCollection(){
   document.getElementById('colGrid').innerHTML=list.map(x=>pcardHTML(x.p,x.i)).join('');
   bindReveal();
 }
-function setFilter(c){curFilter=c;renderFilters();renderCollection();if(!location.hash.startsWith('#/collection'))location.hash='#/collection';}
-renderFilters();renderCollection();
+function setFilter(c){curFilter=c;try{renderFilters();renderCollection();}catch(e){console.error(e)}if(!location.hash.startsWith('#/collection'))location.hash='#/collection';}
+try{renderFilters();renderCollection();}catch(e){console.error(e)}
 
 /* product page */
 function renderProduct(i){
@@ -706,7 +707,7 @@ function renderVideos(){
     });
   });
 }
-renderVideos();
+try{renderVideos();}catch(e){console.error(e)}
 
 /* ============ ROUTER ============ */
 const pages=['home','collection','product','how','about','contact'];
@@ -719,17 +720,22 @@ function route(){
   document.getElementById('page-'+r).classList.add('active');
   document.querySelectorAll('.nlinks a').forEach(a=>a.classList.toggle('on',a.dataset.r===r));
   document.getElementById('mmenu').classList.remove('open');
-  window.scrollTo({top:0});
+  try{window.scrollTo({top:0})}catch(e){}
   bindReveal();
 }
 window.addEventListener('hashchange',route);
 
 /* ============ MOTION ============ */
-let ro;
 function bindReveal(){
-  if(ro)ro.disconnect();
-  ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:.12});
-  document.querySelectorAll('.page.active .r,.page.active .r2,.page.active .line-r,footer .r').forEach(el=>ro.observe(el));
+  try{
+    const els=document.querySelectorAll('.page.active .r,.page.active .r2,.page.active .line-r,footer .r');
+    if(!('IntersectionObserver' in window)){els.forEach(el=>el.classList.add('vis'));}
+    else{
+      if(ro)ro.disconnect();
+      ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:.12});
+      els.forEach(el=>ro.observe(el));
+    }
+  }catch(e){document.querySelectorAll('.r,.r2,.line-r').forEach(el=>el.classList.add('vis'));}
   /* counters */
   document.querySelectorAll('.page.active [data-count]').forEach(el=>{
     if(el.dataset.done)return;el.dataset.done=1;
@@ -748,8 +754,9 @@ document.getElementById('burger').addEventListener('click',()=>document.getEleme
 
 /* ============ CURSOR ============ */
 (function(){
+  try{
   const dot=document.querySelector('.cdot'),ring=document.querySelector('.cring');
-  if(!dot||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  if(!dot||!window.matchMedia||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
   let mx=0,my=0,rx=0,ry=0;
   window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)'});
   (function loop(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(loop)})();
@@ -760,6 +767,7 @@ document.getElementById('burger').addEventListener('click',()=>document.getEleme
     else if(l){ring.classList.add('on');ring.classList.remove('txt')}
     else{ring.classList.remove('on','txt')}
   });
+  }catch(e){console.error(e)}
 })();
 
 /* ============ FORMS ============ */

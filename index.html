@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ALVEÉ — Skin Science · The Capsule Cream Series</title>
-<meta name="description" content="Seoul-formulated capsule creams. Actives sealed fresh until the second your skin needs them.">
+<meta name="description" content="Capsule creams engineered for freshness. Actives sealed fresh until the second your skin needs them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -308,10 +308,54 @@ footer{background:var(--ink);color:var(--bg);padding:110px 0 0;position:relative
   section{padding:90px 0}
   .chip-f{display:none}
 }
+
+/* ---------- DYNAMIC ACCENT + GRAIN ---------- */
+:root{--acc:#4D9FFF}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.o1{background:var(--acc)!important;opacity:.16;transition:background 1.2s}
+/* cutout-look product imagery */
+.pimgbox img,#pdImg img,.stage img,.cbimg img{mix-blend-mode:multiply}
+/* ---------- HERO STAGE ---------- */
+.stage{width:min(31vw,480px);aspect-ratio:4/5;border-radius:240px 240px 10px 10px;position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(175deg,#fff 0%,var(--acc) 210%);transition:background 1.2s var(--ease);overflow:hidden;box-shadow:0 70px 130px -50px rgba(23,18,26,.35)}
+.stage::after{content:'';position:absolute;inset:0;background:radial-gradient(60% 40% at 50% 100%,var(--acc),transparent 70%);opacity:.22;transition:background 1.2s}
+.stage img{width:86%;height:auto;max-height:88%;object-fit:contain;position:relative;z-index:2;transition:opacity .5s var(--ease),transform .7s var(--ease)}
+.stage img.sw{opacity:0;transform:translateY(26px) scale(.96)}
+.hdots{display:flex;gap:12px;justify-content:center;margin-top:30px}
+.hdots button{width:15px;height:15px;border-radius:50%;border:2px solid transparent;outline:2px solid transparent;cursor:pointer;transition:.3s;padding:0}
+.hdots button.on{outline:2px solid var(--ink);outline-offset:3px}
+.hero-vis{flex-direction:column}
+/* ---------- COLOR BAR ---------- */
+.cbrow{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:60px}
+.cbrow button{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;transition:transform .35s var(--ease),outline .2s;outline:2px solid transparent;outline-offset:4px;padding:0}
+.cbrow button:hover{transform:scale(1.18)}
+.cbrow button.on{outline-color:var(--ink);transform:scale(1.12)}
+.cbstage{display:grid;grid-template-columns:1fr 1.1fr;gap:5vw;align-items:center}
+.cbimg{aspect-ratio:1/1;border-radius:4px;display:flex;align-items:center;justify-content:center;transition:background 1s var(--ease);overflow:hidden;border:1px solid rgba(23,18,26,.06)}
+.cbimg img{width:78%;height:78%;object-fit:contain;transition:opacity .45s,transform .6s var(--ease)}
+.cbimg img.sw{opacity:0;transform:scale(.94)}
+/* ---------- LIFESTYLE MOSAIC ---------- */
+.mosgrid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:150px;gap:14px}
+.most{border-radius:4px;overflow:hidden;position:relative;background:#fff;border:1px solid rgba(23,18,26,.06)}
+.most img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.most:hover img{transform:scale(1.06)}
+.most.prod{display:flex;align-items:center;justify-content:center}
+.most.prod img{object-fit:contain;width:74%;height:74%;mix-blend-mode:multiply}
+.most.mq{background:var(--ink);color:var(--bg);display:flex;align-items:center;padding:34px;font-family:'Fraunces',serif;font-style:italic;font-size:clamp(17px,1.6vw,24px);line-height:1.4}
+.most.mq b{color:var(--gold2);font-weight:400}
+.m-a{grid-column:span 2;grid-row:span 2}
+.m-b{grid-column:span 2;grid-row:span 1}
+.m-c{grid-column:span 2;grid-row:span 2}
+.m-d{grid-column:span 2;grid-row:span 1}
+.m-e{grid-column:span 3;grid-row:span 2}
+.m-f{grid-column:span 3;grid-row:span 2}
+@media(max-width:980px){.mosgrid{grid-template-columns:repeat(2,1fr)}.m-a,.m-b,.m-c,.m-d,.m-e,.m-f{grid-column:span 2}
+.stage{width:min(78vw,420px)}.cbstage{grid-template-columns:1fr}}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.r,.r2{opacity:1;transform:none}.line-r span{transform:none}}
 </style>
 </head>
 <body>
+<div class="grain"></div>
 <div class="cdot"></div><div class="cring"></div>
 <nav id="nav">
   <a class="logo" href="#/home">ALVE<em>É</em><small>SKIN SCIENCE</small></a>
@@ -342,7 +386,7 @@ footer{background:var(--ink);color:var(--bg);padding:110px 0 0;position:relative
   <div class="hero-txt">
     <span class="label r">The Capsule Cream Series</span>
     <h1 class="h-xl"><span class="line-r r"><span>Freshness,</span></span><span class="line-r r" style="transition-delay:.12s"><span>sealed until the</span></span><span class="line-r r" style="transition-delay:.24s"><span><em class="it">second</em> you need it.</span></span></h1>
-    <p class="lead r" style="transition-delay:.3s">Most creams are mixed months before they meet your skin. Ours aren't. Visible essence capsules stay sealed in a crystal-clear base — and burst open the moment you blend them. Seoul-formulated. Dermatologist tested. Color-coded to your skin's needs.</p>
+    <p class="lead r" style="transition-delay:.3s">Most creams are mixed months before they meet your skin. Ours aren't. Visible essence capsules stay sealed in a crystal-clear base — and burst open the moment you blend them. Lab-sealed freshness. Dermatologist tested. Color-coded to what your skin needs tonight.</p>
     <div class="hero-ct r" style="transition-delay:.4s">
       <a class="btn" href="#/collection">Explore the Collection <span class="ar">→</span></a>
       <a class="tlink" href="#/how">How capsules work</a>
@@ -354,10 +398,12 @@ footer{background:var(--ink);color:var(--bg);padding:110px 0 0;position:relative
     </div>
   </div>
   <div class="hero-vis r2">
-    <div class="arch" data-cur="View"><img src="images/ghk-cu.jpg" alt="ALVEÉ GHK-Cu Peptide Capsule Cream" onerror="this.src='https://drive.google.com/thumbnail?id=1N8vVLhrRRI-f-0MYB7ay5fqHlLi9mChA&sz=w1000'"></div>
-    <div class="chip-f cf1"><b>GHK-Cu · Blue</b>Copper peptide barrier care</div>
+    <div class="stage" id="heroStage" data-cur="Discover">
+      <img id="heroImg" src="images/ghk-cu.jpg" alt="ALVEÉ Capsule Cream">
+    </div>
+    <div class="chip-f cf1"><b id="hcT">GHK-Cu · Blue</b><span id="hcS">Copper peptide barrier care</span></div>
     <div class="chip-f cf2"><b>Fresh-burst capsules</b>Actives released on contact</div>
-    <svg class="ring-rot" viewBox="0 0 150 150"><defs><path id="circ" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text style="font-size:11.5px;letter-spacing:.32em;text-transform:uppercase;fill:var(--ink)"><textPath href="#circ">Seoul Formulated · Dermatologist Tested · </textPath></text></svg>
+    <div class="hdots" id="heroDots"></div>
   </div>
   <div class="scrolldn">Scroll<i></i></div>
 </header>
@@ -384,10 +430,38 @@ footer{background:var(--ink);color:var(--bg);padding:110px 0 0;position:relative
 <section style="padding-top:0">
   <div class="wrap">
     <div class="shead">
+      <div><span class="label r">Choose by color</span><h2 class="h-lg r" style="margin-top:22px">Nine colors.<br>Nine <em class="it">jobs.</em></h2></div>
+      <p class="lead r">Tap a shade — the jar tells you what it does before you read a word.</p>
+    </div>
+    <div class="cbrow r" id="cbRow"></div>
+    <div class="cbstage">
+      <div class="cbimg r2" id="cbBox"><img id="cbImg" src="" alt=""></div>
+      <div>
+        <div class="pd-cat" id="cbCat" style="margin-bottom:14px"></div>
+        <h3 class="h-md" id="cbName" style="margin-bottom:14px"></h3>
+        <p class="lead" id="cbTag" style="margin-bottom:30px"></p>
+        <a class="btn ghost" id="cbLink" href="#/collection">View product <span class="ar">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="shead">
       <div><span class="label r">The Collection</span><h2 class="h-lg r" style="margin-top:22px">Chosen by <em class="it">color.</em><br>Worn as glow.</h2></div>
       <a class="tlink r" href="#/collection">View all 13 products</a>
     </div>
     <div class="pgrid" id="featGrid"></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="label r">Lifestyle</span><h2 class="h-lg r" style="margin-top:22px">The ritual,<br><em class="it">lived in.</em></h2></div>
+    </div>
+    <div class="mosgrid r2" id="mosGrid"></div>
   </div>
 </section>
 
@@ -530,9 +604,9 @@ footer{background:var(--ink);color:var(--bg);padding:110px 0 0;position:relative
     <div class="split" style="padding-bottom:110px">
       <div class="prose">
         <p class="r">We started ALVEÉ after asking a simple question that most of the beauty industry avoids: how fresh is a cream, really, by the time it reaches your face? The honest answer — months old, sometimes years — became our founding problem to solve.</p>
-        <p class="r">The answer came from Seoul's formulation labs, where capsule-in-cream technology keeps hero actives sealed inside visible essence spheres, suspended in a crystal-clear base, until the moment you blend them on your palm. Every application is, in a real sense, freshly made.</p>
+        <p class="r">The answer became our obsession: capsule-in-cream technology that keeps hero actives sealed inside visible essence spheres, suspended in a crystal-clear base, until the moment you blend them on your palm. Every application is, in a real sense, freshly made.</p>
         <p class="r">Today the Capsule Cream Series spans nine color-coded formulas — from blue GHK-Cu barrier care to the gold-flecked Golden Glow — alongside our whipped tallow balm, beauty-from-within capsules, and the tricolor primer. Each one is dermatologist tested, cruelty free, and formulated without parabens, mineral oil, artificial fragrance, artificial color or alcohol.</p>
-        <p class="r">We're an independent brand, operated from Florida and formulated in Korea, sold to customers across the US and worldwide through Amazon. No corporate parent, no shortcuts — just an obsession with the ten seconds between the jar and your glow.</p>
+        <p class="r">We're an independent brand, operated from Florida and sold to customers across the US and worldwide through Amazon. No corporate parent, no shortcuts — just an obsession with the ten seconds between the jar and your glow.</p>
       </div>
       <div>
         <div class="img-tile img-tall r2" data-cur="Golden Glow"><img src="images/golden-glow.jpg" alt="ALVEÉ Golden Glow Capsule Cream" onerror="this.style.display='none'"></div>
@@ -588,13 +662,13 @@ footer{background:var(--ink);color:var(--bg);padding:110px 0 0;position:relative
     <div class="fcols">
       <div class="fbrand">
         <a class="logo" href="#/home" style="color:var(--bg)">ALVE<em>É</em><small style="color:rgba(246,243,238,.5)">SKIN SCIENCE</small></a>
-        <p>Capsule creams formulated in Seoul, operated from Florida, worn everywhere. Freshness, sealed until the second you need it.</p>
+        <p>Capsule creams engineered for freshness. Operated from Florida, worn everywhere. Freshness, sealed until the second you need it.</p>
       </div>
       <div><h4>Explore</h4><a href="#/collection">Collection</a><a href="#/how">The Science</a><a href="#/about">About</a><a href="#/contact">Contact</a></div>
       <div><h4>Shop</h4><a href="#" onclick="goAmazon();return false">Amazon Store ↗</a><a href="#/collection" onclick="setFilter('Capsule Cream Series')">Capsule Creams</a><a href="#/collection" onclick="setFilter('Balm')">Balm</a><a href="#/collection" onclick="setFilter('Beauty From Within')">Beauty From Within</a></div>
       <div><h4>Follow</h4><a href="https://www.instagram.com/alveebeauty" target="_blank">Instagram</a><a href="https://www.tiktok.com/@alveebeauty" target="_blank">TikTok</a><a href="https://www.alveebeauty.com" target="_blank">alveebeauty.com</a></div>
     </div>
-    <div class="fbot"><span>© 2026 ALVEÉ Skin Science. All rights reserved.</span><span>Dermatologist tested · Cruelty free · Made in Korea</span></div>
+    <div class="fbot"><span>© 2026 ALVEÉ Skin Science. All rights reserved.</span><span>Dermatologist tested · Cruelty free · Fresh-burst technology</span></div>
   </div>
   <div class="fgiant">ALVEÉ</div>
 </footer>
@@ -641,7 +715,7 @@ const VIDEOS=[
 function goAmazon(){window.open(AMAZON,'_blank')}
 function pcardHTML(p,i){
   return '<a class="pcard r2" href="#/product/'+i+'">'
-   +'<div class="pimgbox"><img src="images/'+p.file+'" alt="'+p.name+'" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\''+IMG(p.gd)+'\'}else{this.style.display=\'none\'}"><span class="parw">→</span></div>'
+   +'<div class="pimgbox" style="background:linear-gradient(170deg,#ffffff 30%,'+p.color+'26)"><img src="images/'+p.file+'" alt="'+p.name+'" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\''+IMG(p.gd)+'\'}else{this.style.display=\'none\'}"><span class="parw">→</span></div>'
    +'<div class="pcat"><i style="background:'+p.color+'"></i>'+p.cat+' · '+p.cl+'</div>'
    +'<h3>'+p.name+'</h3><p>'+p.tag+'.</p></a>';
 }
@@ -671,6 +745,7 @@ try{renderFilters();renderCollection();}catch(e){console.error(e)}
 /* product page */
 function renderProduct(i){
   const p=PRODUCTS[i];if(!p){location.hash='#/collection';return;}
+  document.getElementById('pdImg').style.background='linear-gradient(170deg,#ffffff 25%,'+p.color+'33)';
   document.getElementById('pdImg').innerHTML='<img src="images/'+p.file+'" alt="'+p.name+'" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\''+IMG(p.gd)+'\'}else{this.style.display=\'none\'}">';
   document.getElementById('pdCat').innerHTML='<i style="background:'+p.color+'"></i>'+p.cat+' · '+p.cl;
   document.getElementById('pdName').textContent=p.name;
@@ -783,6 +858,103 @@ document.getElementById('nlBtn').addEventListener('click',()=>{
   if(i.value.includes('@')){i.value='';i.placeholder='Welcome to the glow list ✦'}
   else{i.placeholder='Enter a valid email'}
 });
+
+
+/* ============ HERO SHOWCASE ============ */
+const HERO_ROT=[0,2,8,4,7];
+let heroIdx=0,heroTimer=null;
+function setAccent(c){document.documentElement.style.setProperty('--acc',c)}
+function heroShow(k){
+  heroIdx=k;
+  const p=PRODUCTS[HERO_ROT[k]];
+  const img=document.getElementById('heroImg');
+  img.classList.add('sw');
+  setTimeout(()=>{
+    img.src='images/'+p.file;
+    img.onerror=function(){if(!this.dataset.f){this.dataset.f=1;this.src=IMG(p.gd)}};
+    img.onload=()=>img.classList.remove('sw');
+    setTimeout(()=>img.classList.remove('sw'),600);
+  },350);
+  setAccent(p.color);
+  document.getElementById('hcT').textContent=p.name.replace(' Capsule Cream','')+' · '+p.cl;
+  document.getElementById('hcS').textContent=p.tag.split(' for ')[0];
+  document.querySelectorAll('#heroDots button').forEach((b,i)=>b.classList.toggle('on',i===k));
+}
+function heroInit(){
+  const dots=document.getElementById('heroDots');
+  if(!dots)return;
+  dots.innerHTML=HERO_ROT.map((pi,i)=>'<button style="background:'+PRODUCTS[pi].color+'" aria-label="'+PRODUCTS[pi].name+'"></button>').join('');
+  dots.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{heroShow(i);heroRestart()}));
+  const stage=document.getElementById('heroStage');
+  stage.addEventListener('click',()=>{location.hash='#/product/'+HERO_ROT[heroIdx]});
+  heroShow(0);heroRestart();
+}
+function heroRestart(){
+  clearInterval(heroTimer);
+  heroTimer=setInterval(()=>heroShow((heroIdx+1)%HERO_ROT.length),4200);
+}
+try{heroInit()}catch(e){console.error(e)}
+
+/* ============ COLOR BAR ============ */
+const CB_SET=[0,1,2,3,4,5,6,7,8];
+function cbShow(i){
+  const p=PRODUCTS[CB_SET[i]];
+  const box=document.getElementById('cbBox'),img=document.getElementById('cbImg');
+  box.style.background='linear-gradient(165deg,#ffffff 15%,'+p.color+'40)';
+  img.classList.add('sw');
+  setTimeout(()=>{
+    img.src='images/'+p.file;
+    img.onerror=function(){if(!this.dataset.f){this.dataset.f=1;this.src=IMG(p.gd)}};
+    setTimeout(()=>img.classList.remove('sw'),80);
+  },300);
+  document.getElementById('cbCat').innerHTML='<i style="background:'+p.color+';width:10px;height:10px;border-radius:50%"></i>'+p.cat+' · '+p.cl;
+  document.getElementById('cbName').textContent=p.name;
+  document.getElementById('cbTag').textContent=p.tag+'.';
+  document.getElementById('cbLink').setAttribute('href','#/product/'+CB_SET[i]);
+  document.querySelectorAll('#cbRow button').forEach((b,k)=>b.classList.toggle('on',k===i));
+}
+function cbInit(){
+  const row=document.getElementById('cbRow');
+  if(!row)return;
+  row.innerHTML=CB_SET.map((pi,i)=>'<button style="background:'+PRODUCTS[pi].color+'" aria-label="'+PRODUCTS[pi].name+'"></button>').join('');
+  row.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>cbShow(i)));
+  cbShow(0);
+}
+try{cbInit()}catch(e){console.error(e)}
+
+/* ============ LIFESTYLE MOSAIC ============ */
+/* Upload real lifestyle photos to a "lifestyle" folder in the repo,
+   named 1.jpg, 2.jpg, 3.jpg, 4.jpg — tiles switch to them automatically.
+   Until then, tiles show styled product art so nothing looks empty. */
+function mosProdTile(pi,cls){
+  const p=PRODUCTS[pi];
+  return '<div class="most prod '+cls+'" style="background:linear-gradient(165deg,#ffffff 20%,'+p.color+'33)"><img src="images/'+p.file+'" alt="'+p.name+'" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\''+'https://drive.google.com/thumbnail?id='+p.gd+'&sz=w1000'+'\'}"></div>';
+}
+function mosLifeTile(n,pi,cls){
+  const p=PRODUCTS[pi];
+  return '<div class="most '+cls+'" data-life="'+n+'" data-pi="'+pi+'"><img src="lifestyle/'+n+'.jpg" alt="ALVEÉ lifestyle" loading="lazy"></div>';
+}
+function mosInit(){
+  const g=document.getElementById('mosGrid');
+  if(!g)return;
+  g.innerHTML=
+    mosLifeTile(1,8,'m-a')
+   +'<div class="most mq m-b">“Freshness isn\'t our marketing — <b>it\'s our mechanism.</b>”</div>'
+   +mosLifeTile(2,2,'m-c')
+   +mosProdTile(9,'m-d')
+   +mosLifeTile(3,0,'m-e')
+   +mosLifeTile(4,4,'m-f');
+  g.querySelectorAll('[data-life] img').forEach(img=>{
+    img.onerror=()=>{
+      const t=img.closest('.most');const pi=+t.dataset.pi;const p=PRODUCTS[pi];
+      t.classList.add('prod');
+      t.style.background='linear-gradient(165deg,#ffffff 20%,'+p.color+'33)';
+      img.onerror=function(){if(!this.dataset.f){this.dataset.f=1;this.src='https://drive.google.com/thumbnail?id='+p.gd+'&sz=w1000'}};
+      img.src='images/'+p.file;
+    };
+  });
+}
+try{mosInit()}catch(e){console.error(e)}
 
 route();
 </script>
